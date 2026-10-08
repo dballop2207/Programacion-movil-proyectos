@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">DBL Aplicacion Sencilla</string>
-    <string name="Xenoblade1">Xenoblade Chronicles 1</string>
-    <string name="Xenoblade2">Xenoblade Chronicles 2</string>
-    <string name="Xenoblade3">Xenoblade Chronicles 3</string>
-    <string name="XenobladeX">Xenoblade Chronicles X</string>
-    <string name="XenobladeGenesis">Xenoblade Genesis</string>
+    <string name="Sistemas_informaticos">Sistemas informáticos</string>
+    <string name="Acceso_a_datos">Acceso a datos</string>
+    <string name="Base_de_datos">Base de datos</string>
+    <string name="Desarrollo_aplicaciones_movil">Desarrollo de aplicaciones moviles</string>
+    <string name="Ingles">Ingles</string>
 </resources>

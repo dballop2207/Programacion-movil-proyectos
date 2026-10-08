@@ -21,6 +21,7 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.res.stringResource
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -44,11 +45,11 @@ private const val NUMERO_TARJETAS_CARRUSEL = 5
 private data class Contacto(val titulo: Int, val fecha: String)
 
 private val juegosSaga = listOf(
-    Contacto(R.string.Xenoblade1, "19/06/2010"),
-    Contacto(R.string.XenobladeX, "04/12/2015"),
-    Contacto(R.string.Xenoblade2, "01/12/2017"),
-    Contacto(R.string.Xenoblade3, "29/07/2022"),
-    Contacto(R.string.XenobladeGenesis, "2027")
+    Contacto(R.string.Sistemas_informaticos, "Antonio Miguel"),
+    Contacto(R.string.Acceso_a_datos, "Federico Huércano"),
+    Contacto(R.string.Base_de_datos, "Francisco Jesús"),
+    Contacto(R.string.Desarrollo_aplicaciones_movil, "Juan Manuel"),
+    Contacto(R.string.Ingles, "Laura Pineda")
 )
 
 class MainActivity : ComponentActivity() {
@@ -56,109 +57,111 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            DBLAplicacionSencillaTheme {
-                AplicacionContenido ()
-            }
-        }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(
-    showBackground = true
-)
-@Composable
-fun ComponentesCarrusel() {
-    LazyRow {
-        items(NUMERO_TARJETAS_CARRUSEL) { index ->
-            ElevatedCard(
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier
-                    .padding(8.dp)
-                    .size(width = 250.dp, height = 250.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = stringResource(juegosSaga[index].titulo),
-                        textAlign = TextAlign.Center,
-                        style = TextStyle(fontSize = 20.sp)
-
-                    )
-                    Spacer(
-                        modifier = Modifier.height(10.dp)
-                    )
-                    Text(
-                        text = juegosSaga[index].fecha,
-                        textAlign = TextAlign.Center,
-                        style = TextStyle(fontSize = 18.sp)
+            DBLAplicacionSencillaTheme() {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    AplicacionContenido(
+                        modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
         }
     }
-}
 
-@Composable
-fun AplicacionContenido () {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        ComponentesCarrusel()
-        myButtons()
-    }
-}
-
-@Composable
-fun myButtons() {
-
-    Spacer(
-        modifier = Modifier.height(10.dp)
-    )
-
-    //Variables para los botones
-    var habilitado1 by remember { mutableStateOf(true) }
-    var habilitado2 by remember { mutableStateOf(false) }
-
-    if (habilitado1) {
-        Text(("Nadie ha pulsado el botón aún"), style = TextStyle(fontSize = 20.sp))
-    } else {
-        Text(("Daniel Balastegui López"), style = TextStyle(fontSize = 20.sp))
+    @Composable
+    fun Greeting(name: String, modifier: Modifier = Modifier) {
+        Text(
+            text = "Hello $name!",
+            modifier = modifier
+        )
     }
 
-    Spacer(
-        modifier = Modifier.height(10.dp)
-    )
+    @Preview
+    @Composable
+    fun ComponentesCarrusel() {
+        LazyRow {
+            items(NUMERO_TARJETAS_CARRUSEL) { index ->
+                ElevatedCard(
+                    shape = MaterialTheme.shapes.medium,
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .size(width = 250.dp, height = 250.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = stringResource(juegosSaga[index].titulo),
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(fontSize = 20.sp)
 
-    Row() {
-        Button(onClick = { habilitado1 = false; habilitado2 = true; }, enabled = habilitado1) {
-            if (!habilitado1) {
-                Text(("Resetear"), style = TextStyle(fontSize = 20.sp))
-            } else {
-                Text(("Pulsar"), style = TextStyle(fontSize = 20.sp))
+                        )
+                        Spacer(
+                            modifier = Modifier.height(10.dp)
+                        )
+                        Text(
+                            text = juegosSaga[index].fecha,
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(fontSize = 18.sp)
+                        )
+                    }
+                }
             }
         }
-        Button(onClick = { habilitado2 = false; habilitado1 = true }, enabled = habilitado2) {
-            if (!habilitado2) {
-                Text(("Resetear"), style = TextStyle(fontSize = 20.sp))
-            } else {
-                Text(("Pulsar"), style = TextStyle(fontSize = 20.sp))
-            }
+    }
+
+    @Composable
+    fun AplicacionContenido(modifier: Modifier) {
+        Column(
+            modifier = Modifier.fillMaxSize().padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            ComponentesCarrusel()
+            myButtons()
+        }
+    }
+
+    @Composable
+    fun myButtons() {
+
+        Spacer(
+            modifier = Modifier.height(10.dp)
+        )
+
+        //Variables para los botones
+        var habilitado1 by remember { mutableStateOf(true) }
+        var habilitado2 by remember { mutableStateOf(false) }
+
+        if (habilitado1) {
+            Text(("Nadie ha pulsado el botón aún"), style = TextStyle(fontSize = 20.sp))
+        } else {
+            Text(("Daniel Balastegui López"), style = TextStyle(fontSize = 20.sp))
         }
 
+        Spacer(
+            modifier = Modifier.height(10.dp)
+        )
+
+        Row() {
+            Button(onClick = { habilitado1 = false; habilitado2 = true; }, enabled = habilitado1) {
+                if (!habilitado1) {
+                    Text(("Resetear"), style = TextStyle(fontSize = 20.sp))
+                } else {
+                    Text(("Pulsar"), style = TextStyle(fontSize = 20.sp))
+                }
+            }
+            Button(onClick = { habilitado2 = false; habilitado1 = true }, enabled = habilitado2) {
+                if (!habilitado2) {
+                    Text(("Resetear"), style = TextStyle(fontSize = 20.sp))
+                } else {
+                    Text(("Pulsar"), style = TextStyle(fontSize = 20.sp))
+                }
+            }
+
+        }
     }
 }

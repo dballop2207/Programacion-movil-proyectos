@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DBL Simple Application</string>
+    <string name="Sistemas_informaticos">Informatic System</string>
+    <string name="Acceso_a_datos">Access to Data</string>
+    <string name="Base_de_datos">Database</string>
+    <string name="Desarrollo_aplicaciones_movil">Mobile application development</string>
+    <string name="Ingles">Ingles</string>
+</resources>
