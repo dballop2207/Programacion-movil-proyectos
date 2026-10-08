@@ -94,6 +94,11 @@ class MainActivity : ComponentActivity() {
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
+                            text = "Card $index",
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(fontSize = 20.sp)
+                        )
+                        Text(
                             text = stringResource(juegosSaga[index].titulo),
                             textAlign = TextAlign.Center,
                             style = TextStyle(fontSize = 20.sp)
