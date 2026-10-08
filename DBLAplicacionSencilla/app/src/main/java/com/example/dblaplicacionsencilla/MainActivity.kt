@@ -67,13 +67,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    @Composable
-    fun Greeting(name: String, modifier: Modifier = Modifier) {
-        Text(
-            text = "Hello $name!",
-            modifier = modifier
-        )
-    }
 
     @Preview
     @Composable
@@ -94,8 +87,8 @@ class MainActivity : ComponentActivity() {
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "Card $index",
-                            textAlign = TextAlign.Center,
+                            text = stringResource(R.string.Indicador)+": $index",
+                            textAlign = TextAlign.Start,
                             style = TextStyle(fontSize = 20.sp)
                         )
                         Text(
