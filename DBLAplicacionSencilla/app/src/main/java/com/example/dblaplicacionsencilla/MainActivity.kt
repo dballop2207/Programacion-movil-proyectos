@@ -71,14 +71,14 @@ class MainActivity : ComponentActivity() {
 
 
     @Composable
-    fun estadoBotones() {
+    fun EstadoBotones() {
         var pulsado by rememberSaveable { mutableStateOf(false) }
         //Variables en un mutableStateOf para que las observe cuando haya cambios
         MyButtons (
             pulsado = pulsado,
             onPulsar = { pulsado = true },
             onResetear = { pulsado = true },
-            modifier = modifier
+            modifier = Modifier
         )
     }
 
@@ -141,17 +141,17 @@ class MainActivity : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ComponentesCarrusel()
-            MyButtons()
+            EstadoBotones()
         }
     }
 
     @Composable
-    fun MyButtons(boolean: pulsado) {
+    fun MyButtons(pulsado: Boolean, onPulsar: () -> Unit, onResetear: () -> Unit, modifier: Modifier = Modifier) {
         Spacer(
             modifier = Modifier.height(10.dp)
         )
 
-        if (habilitado1) {
+        if (!pulsado) {
             Text (text = (stringResource(R.string.Aviso)), style = TextStyle(fontSize = 22.sp))
         } else {
             Text(("Daniel Balastegui López"), style = TextStyle(fontSize = 22.sp))
@@ -163,11 +163,11 @@ class MainActivity : ComponentActivity() {
 
         Row() {
 
-            Button(onClick = onBoton1Click,
-                enabled = habilitado1,
+            Button(onClick = onPulsar,
+                enabled = !pulsado,
                 shape = RoundedCornerShape(8.dp))
             {
-                if (!habilitado1) {
+                if (pulsado) {
                     Text(text = (stringResource(R.string.Resetear)), style = TextStyle(fontSize = 20.sp))
                 } else {
                     Text(text = (stringResource(R.string.Pulsar)), style = TextStyle(fontSize = 20.sp))
@@ -177,11 +177,11 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier.width(10.dp)
             )
 
-            Button(onClick = onBoton2Click,
-                enabled = habilitado2,
+            Button(onClick = onResetear,
+                enabled = pulsado,
                 shape = RoundedCornerShape(8.dp))
             {
-                if (!habilitado2) {
+                if (!pulsado) {
                     Text(text = (stringResource(R.string.Resetear)), style = TextStyle(fontSize = 20.sp))
                 } else {
                     Text(text = (stringResource(R.string.Pulsar)), style = TextStyle(fontSize = 20.sp))
