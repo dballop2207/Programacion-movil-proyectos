@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">DBL Simple Application</string>
     <string name="Sistemas_informaticos">Informatic System</string>
-    <string name="Acceso_a_datos">Access to Data</string>
+    <string name="Acceso_a_datos">Access data</string>
     <string name="Base_de_datos">Database</string>
-    <string name="Desarrollo_aplicaciones_movil">Mobile application development</string>
-    <string name="Ingles">Ingles</string>
+    <string name="Desarrollo_aplicaciones_movil">Movile application development</string>
+    <string name="Ingles">English</string>
     <string name="Indicador">Card</string>
+    <string name="Aviso">Nobody has press the button yet</string>
+    <string name="Pulsar">Press</string>
+    <string name="Resetear">Reset</string>
+    <string name="Boton_pulsado">Daniel Balastegui López pressed the button</string>
 </resources>
