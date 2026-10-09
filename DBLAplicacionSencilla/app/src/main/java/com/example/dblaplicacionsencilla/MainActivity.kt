@@ -22,11 +22,13 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.res.stringResource
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,9 +43,9 @@ import com.example.dblaplicacionsencilla.ui.theme.DBLAplicacionSencillaTheme
 private const val NUMERO_TARJETAS_CARRUSEL = 5
 
 //Clase para las tarjetas
-private data class Contacto(val titulo: Int, val fecha: String)
+private data class Contacto(val nombre: Int, val profesor: String)
 
-private val juegosSaga = listOf(
+private val asignatura = listOf(
     Contacto(R.string.Sistemas_informaticos, "Antonio Miguel"),
     Contacto(R.string.Acceso_a_datos, "Federico Huércano"),
     Contacto(R.string.Base_de_datos, "Francisco Jesús"),
@@ -67,10 +69,26 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+    @Composable
+    fun estadoBotones() {
+        var pulsado by rememberSaveable { mutableStateOf(false) }
+        //Variables en un mutableStateOf para que las observe cuando haya cambios
+        MyButtons (
+            pulsado = pulsado,
+            onPulsar = { pulsado = true },
+            onResetear = { pulsado = true },
+            modifier = modifier
+        )
+    }
+
     @Preview
     @Composable
     fun ComponentesCarrusel() {
+        // Creamos una lista grande sin elementos sin que afecte el rendimiento
         LazyRow {
+            //Insertamos "items" que esto lo que hará será crear un número de objetos dentro de "items"
+            // en este caso es una "ElevatedCard". Y le ponemos unas 5
             items(NUMERO_TARJETAS_CARRUSEL) { index ->
                 ElevatedCard(
                     shape = MaterialTheme.shapes.medium,
@@ -78,10 +96,12 @@ class MainActivity : ComponentActivity() {
                         .padding(8.dp)
                         .size(width = 250.dp, height = 250.dp)
                 ) {
+                    //Metemos una caja y no una card porque el elemento
+                    //tarjeta es el único que no está centrado.
                     Box(modifier = Modifier.fillMaxSize()) {
                         Text(
-                            text = stringResource(R.string.Indicador) + ": $index",
-                            style = TextStyle(fontSize = 20.sp),
+                            text = stringResource(R.string.Indicador) + " ${index + 1}",
+                            style = TextStyle(fontSize = 15.sp),
                             modifier = Modifier
                                 .align(Alignment.TopStart)
                                 .padding(12.dp)
@@ -94,13 +114,13 @@ class MainActivity : ComponentActivity() {
                             verticalArrangement = Arrangement.Center
                         ) {
                             Text(
-                                text = stringResource(juegosSaga[index].titulo),
+                                text = stringResource(asignatura[index].nombre),
                                 textAlign = TextAlign.Center,
                                 style = TextStyle(fontSize = 20.sp)
                             )
                             Spacer(modifier = Modifier.height(10.dp))
                             Text(
-                                text = juegosSaga[index].fecha,
+                                text = asignatura[index].profesor,
                                 textAlign = TextAlign.Center,
                                 style = TextStyle(fontSize = 18.sp)
                             )
@@ -113,6 +133,8 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun AplicacionContenido(modifier: Modifier) {
+        //Esto proyecta todo el contenido de la aplicación en columnas y centrado
+        //dentro de una función para ir preparandola para luego después ponerla en la función principal.
         Column(
             modifier = Modifier.fillMaxSize().padding(16.dp),
             verticalArrangement = Arrangement.Center,
@@ -124,19 +146,15 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun MyButtons() {
+    fun MyButtons(boolean: pulsado) {
         Spacer(
             modifier = Modifier.height(10.dp)
         )
 
-        //Variables para los botones
-        var habilitado1 by remember { mutableStateOf(true) }
-        var habilitado2 by remember { mutableStateOf(false) }
-
         if (habilitado1) {
-            Text (text = (stringResource(R.string.Aviso)), style = TextStyle(fontSize = 25.sp))
+            Text (text = (stringResource(R.string.Aviso)), style = TextStyle(fontSize = 22.sp))
         } else {
-            Text(("Daniel Balastegui López"), style = TextStyle(fontSize = 20.sp))
+            Text(("Daniel Balastegui López"), style = TextStyle(fontSize = 22.sp))
         }
 
         Spacer(
@@ -144,7 +162,11 @@ class MainActivity : ComponentActivity() {
         )
 
         Row() {
-            Button(onClick = { habilitado1 = false; habilitado2 = true; }, enabled = habilitado1, shape = RoundedCornerShape(8.dp)) {
+
+            Button(onClick = onBoton1Click,
+                enabled = habilitado1,
+                shape = RoundedCornerShape(8.dp))
+            {
                 if (!habilitado1) {
                     Text(text = (stringResource(R.string.Resetear)), style = TextStyle(fontSize = 20.sp))
                 } else {
@@ -154,7 +176,11 @@ class MainActivity : ComponentActivity() {
             Spacer(
                 modifier = Modifier.width(10.dp)
             )
-            Button(onClick = { habilitado2 = false; habilitado1 = true }, enabled = habilitado2, shape = RoundedCornerShape(8.dp)) {
+
+            Button(onClick = onBoton2Click,
+                enabled = habilitado2,
+                shape = RoundedCornerShape(8.dp))
+            {
                 if (!habilitado2) {
                     Text(text = (stringResource(R.string.Resetear)), style = TextStyle(fontSize = 20.sp))
                 } else {
@@ -164,15 +190,23 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-@Preview(name = "Modo claro", showBackground = true)
+//Comprobar que el modo blanco y negro van bien en una aplicación
+@Preview(
+    name = "Modo claro",
+    locale = "es",
+    showBackground = true
+)
 @Preview(
     name = "Modo oscuro",
     showBackground = true,
+    locale = "es",
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
 fun VistaPreviaAplicacion() {
     DBLAplicacionSencillaTheme {
-        AplicacionContenido(modifier = Modifier)
+        Surface(modifier = Modifier.fillMaxSize()) {
+            AplicacionContenido(modifier = Modifier)
+        }
     }
 }
