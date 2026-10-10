@@ -70,125 +70,125 @@ class MainActivity : ComponentActivity() {
 }
 
 
-    @Composable
-    fun EstadoBotones() {
-        var pulsado by rememberSaveable { mutableStateOf(false) }
-        //Variables en un mutableStateOf para que las observe cuando haya cambios
-        MyButtons (
-            pulsado = pulsado,
-            onPulsar = { pulsado = true },
-            onResetear = { pulsado = true },
-            modifier = Modifier
-        )
-    }
+@Composable
+fun EstadoBotones() {
+    var pulsado by rememberSaveable { mutableStateOf(false) }
+    //Variables en un mutableStateOf para que las observe cuando haya cambios
+    MyButtons (
+        pulsado = pulsado,
+        onPulsar = { pulsado = true },
+        onResetear = { pulsado = false },
+        modifier = Modifier
+    )
+}
 
-    @Preview
-    @Composable
-    fun ComponentesCarrusel() {
-        // Creamos una lista grande sin elementos sin que afecte el rendimiento
-        LazyRow {
-            //Insertamos "items" que esto lo que hará será crear un número de objetos dentro de "items"
-            // en este caso es una "ElevatedCard". Y le ponemos unas 5
-            items(NUMERO_TARJETAS_CARRUSEL) { index ->
-                ElevatedCard(
-                    shape = MaterialTheme.shapes.medium,
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .size(width = 250.dp, height = 250.dp)
-                ) {
-                    //Metemos una caja y no una card porque el elemento
-                    //tarjeta es el único que no está centrado.
-                    Box(modifier = Modifier.fillMaxSize()) {
+@Preview
+@Composable
+fun ComponentesCarrusel() {
+    // Creamos una lista grande sin elementos sin que afecte el rendimiento
+    LazyRow {
+        //Insertamos "items" que esto lo que hará será crear un número de objetos dentro de "items"
+        // en este caso es una "ElevatedCard". Y le ponemos unas 5
+        items(NUMERO_TARJETAS_CARRUSEL) { index ->
+            ElevatedCard(
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(width = 250.dp, height = 250.dp)
+            ) {
+                //Metemos una caja y no una card porque el elemento
+                //tarjeta es el único que no está centrado en la caja.
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Text(
+                        text = stringResource(R.string.Indicador) + " ${index + 1}",
+                        style = TextStyle(fontSize = 15.sp),
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .padding(12.dp)
+                    )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
                         Text(
-                            text = stringResource(R.string.Indicador) + " ${index + 1}",
-                            style = TextStyle(fontSize = 15.sp),
-                            modifier = Modifier
-                                .align(Alignment.TopStart)
-                                .padding(12.dp)
+                            text = stringResource(asignatura[index].nombre),
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(fontSize = 20.sp)
                         )
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(16.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            Text(
-                                text = stringResource(asignatura[index].nombre),
-                                textAlign = TextAlign.Center,
-                                style = TextStyle(fontSize = 20.sp)
-                            )
-                            Spacer(modifier = Modifier.height(10.dp))
-                            Text(
-                                text = asignatura[index].profesor,
-                                textAlign = TextAlign.Center,
-                                style = TextStyle(fontSize = 18.sp)
-                            )
-                        }
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Text(
+                            text = asignatura[index].profesor,
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(fontSize = 18.sp)
+                        )
                     }
                 }
             }
         }
     }
+}
 
-    @Composable
-    fun AplicacionContenido(modifier: Modifier) {
-        //Esto proyecta todo el contenido de la aplicación en columnas y centrado
-        //dentro de una función para ir preparandola para luego después ponerla en la función principal.
-        Column(
-            modifier = Modifier.fillMaxSize().padding(16.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            ComponentesCarrusel()
-            EstadoBotones()
-        }
+@Composable
+fun AplicacionContenido(modifier: Modifier) {
+    //Esto proyecta todo el contenido de la aplicación en columnas y centrado
+    //dentro de una función para ir preparandola para luego después ponerla en la función principal.
+    Column(
+        modifier = Modifier.fillMaxSize().padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        ComponentesCarrusel()
+        EstadoBotones()
+    }
+}
+
+@Composable
+fun MyButtons(pulsado: Boolean, onPulsar: () -> Unit, onResetear: () -> Unit, modifier: Modifier = Modifier) {
+    Spacer(
+        modifier = Modifier.height(10.dp)
+    )
+
+    if (!pulsado) {
+        Text (text = (stringResource(R.string.Aviso)), style = TextStyle(fontSize = 22.sp))
+    } else {
+        Text(("Daniel Balastegui López"), style = TextStyle(fontSize = 22.sp))
     }
 
-    @Composable
-    fun MyButtons(pulsado: Boolean, onPulsar: () -> Unit, onResetear: () -> Unit, modifier: Modifier = Modifier) {
-        Spacer(
-            modifier = Modifier.height(10.dp)
-        )
+    Spacer(
+        modifier = Modifier.height(10.dp)
+    )
 
-        if (!pulsado) {
-            Text (text = (stringResource(R.string.Aviso)), style = TextStyle(fontSize = 22.sp))
-        } else {
-            Text(("Daniel Balastegui López"), style = TextStyle(fontSize = 22.sp))
-        }
+    Row() {
 
-        Spacer(
-            modifier = Modifier.height(10.dp)
-        )
-
-        Row() {
-
-            Button(onClick = onPulsar,
-                enabled = !pulsado,
-                shape = RoundedCornerShape(8.dp))
-            {
-                if (pulsado) {
-                    Text(text = (stringResource(R.string.Resetear)), style = TextStyle(fontSize = 20.sp))
-                } else {
-                    Text(text = (stringResource(R.string.Pulsar)), style = TextStyle(fontSize = 20.sp))
-                }
+        Button(onClick = onPulsar,
+            enabled = !pulsado,
+            shape = RoundedCornerShape(8.dp))
+        {
+            if (pulsado) {
+                Text(text = (stringResource(R.string.Resetear)), style = TextStyle(fontSize = 20.sp))
+            } else {
+                Text(text = (stringResource(R.string.Pulsar)), style = TextStyle(fontSize = 20.sp))
             }
-            Spacer(
-                modifier = Modifier.width(10.dp)
-            )
+        }
+        Spacer(
+            modifier = Modifier.width(10.dp)
+        )
 
-            Button(onClick = onResetear,
-                enabled = pulsado,
-                shape = RoundedCornerShape(8.dp))
-            {
-                if (!pulsado) {
-                    Text(text = (stringResource(R.string.Resetear)), style = TextStyle(fontSize = 20.sp))
-                } else {
-                    Text(text = (stringResource(R.string.Pulsar)), style = TextStyle(fontSize = 20.sp))
-                }
+        Button(onClick = onResetear,
+            enabled = pulsado,
+            shape = RoundedCornerShape(8.dp))
+        {
+            if (!pulsado) {
+                Text(text = (stringResource(R.string.Resetear)), style = TextStyle(fontSize = 20.sp))
+            } else {
+                Text(text = (stringResource(R.string.Pulsar)), style = TextStyle(fontSize = 20.sp))
             }
         }
     }
+}
 
 //Comprobar que el modo blanco y negro van bien en una aplicación
 @Preview(
