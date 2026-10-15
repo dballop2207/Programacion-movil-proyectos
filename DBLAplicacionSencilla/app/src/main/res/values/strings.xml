@@ -5,9 +5,5 @@
     <string name="Base_de_datos">Base de datos</string>
     <string name="Desarrollo_aplicaciones_movil">Desarrollo de aplicaciones moviles</string>
     <string name="Ingles">Ingles</string>
-    <string name="Indicador">Tarjeta</string>
-    <string name="Aviso">Nadie ha pulsado el boton aún</string>
-    <string name="Pulsar">Pulsar</string>
-    <string name="Resetear">Resetear</string>
-    <string name="Boton_pulsado">Daniel Balastegui López pulsó el botón</string>
+    <string name="Indicador">Card</string>
 </resources>
