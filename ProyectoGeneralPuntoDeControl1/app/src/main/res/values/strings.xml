@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">ProyectoGeneralPuntoDeControl1</string>
+    <string name="acerca_de">Acerca de</string>
+    <string name="ayuda">Ayuda</string>
+    <string name="nombre_logo">Estudios Pica</string>
+    <string name="desc_logo">Trabajando en un nuevo futuro</string>
+    <string name="volver">Volver</string>
+
+    <!-- About us -->
+    <string name="desc_acerca_de">Info de la aplicacion</string>
+    <string name="autor">Autor</string>
+    <string name="licencia_titulo">Licencia</string>
+    <string name="licencia_descripcion">Esta aplicación se distribuye bajo la licencia Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 (CC BY-NC-SA 4.0).</string>
+    <string name="derechos">© 2026 Pica Studios. Todos los derechos reservados</string>
+
+    <!-- Ayuda -->
+    <string name="sobre_nosotros">Sobre nosotros</string>
+    <string name="oficina_imagen_desc">Imagen de la oficina</string>
+    <string name="descripcion_empresa">Pica Studios nació con el fin de hacer videojuegos para los gamers. Orientada al desarrollo de videojuegos, ofrece un espacio donde podéis divertiros trabajando.</string>
+    <string name="horario">Horario</string>
+    <string name="horario_semana">Lunes – viernes: 9:00 – 15:00</string>
 </resources>
