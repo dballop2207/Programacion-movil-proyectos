@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ProyectoGeneralPuntoDeControl1</string>
     <string name="acerca_de">About us</string>
@@ -16,4 +15,16 @@
     <string name="descripcion_empresa">Pica Studios was founded with the goal of creating video games for gamers. Focused on video game development, it offers a place where you can have fun while you work.</string>
     <string name="horario">Schedual</string>
     <string name="horario_semana">Monday - Friday: 9:00 - 15:00</string>
+    <string name="boton_configuracion">Settings</string>
+    <string name="config_titulo">Settings</string>
+    <string name="config_modo_oscuro">Dark mode</string>
+    <string name="config_idioma">Language</string>
+    <string name="idioma_es">Español</string>
+    <string name="idioma_en">English</string>
+    <string name="config_tamano_texto">Text size</string>
+    <string name="texto_pequeno">Small</string>
+    <string name="texto_mediano">Medium</string>
+    <string name="texto_grande">Large</string>
+    <string name="config_guardar">Save</string>
+    <string name="config_guardado">Settings saved</string>
 </resources>

@@ -39,9 +39,11 @@ fun AcercaDe(onVolver: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        //Insertamos una imagen usando Image() y dentro
+        //ponemos painter = painterResource(id = R.drawable.image-que-buscamos).
         Image(
             painter = painterResource(id = R.drawable.logo_company),
-            contentDescription = "My image",
+            contentDescription = "Logo de la compañía",
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
             modifier = Modifier.size(128.dp)
         )
@@ -55,6 +57,7 @@ fun AcercaDe(onVolver: () -> Unit) {
         )
         Spacer(Modifier.height(16.dp))
 
+        //Carta para poner los datos
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(

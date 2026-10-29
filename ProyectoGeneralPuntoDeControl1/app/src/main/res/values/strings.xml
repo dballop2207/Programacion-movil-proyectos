@@ -19,4 +19,17 @@
     <string name="descripcion_empresa">Pica Studios nació con el fin de hacer videojuegos para los gamers. Orientada al desarrollo de videojuegos, ofrece un espacio donde podéis divertiros trabajando.</string>
     <string name="horario">Horario</string>
     <string name="horario_semana">Lunes – viernes: 9:00 – 15:00</string>
+
+    <string name="boton_configuracion">Configuración</string>
+    <string name="config_titulo">Configuración</string>
+    <string name="config_modo_oscuro">Modo oscuro</string>
+    <string name="config_idioma">Idioma</string>
+    <string name="idioma_es">Español</string>
+    <string name="idioma_en">English</string>
+    <string name="config_tamano_texto">Tamaño del texto</string>
+    <string name="texto_pequeno">Pequeño</string>
+    <string name="texto_mediano">Mediano</string>
+    <string name="texto_grande">Grande</string>
+    <string name="config_guardar">Guardar</string>
+    <string name="config_guardado">Configuración guardada</string>
 </resources>

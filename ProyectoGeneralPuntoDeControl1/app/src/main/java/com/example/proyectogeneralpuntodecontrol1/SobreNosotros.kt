@@ -33,6 +33,8 @@ import com.example.compose.AppTheme
 @Composable
 fun SobreNosotros(onVolver: () -> Unit) {
 
+    //Esto lo que hará será que si tocamos el botón del volver nos llevará a la pantalla de inicio.
+    //Se explica mejor más abajo
     BackHandler(onBack = onVolver)
 
     Column(
