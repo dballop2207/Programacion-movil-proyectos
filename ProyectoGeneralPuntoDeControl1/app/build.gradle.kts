@@ -1,5 +1,3 @@
-import java.awt.SystemColor.text
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -39,6 +37,9 @@ android {
 }
 
 dependencies {
+    implementation("androidx.navigation:navigation-compose:2.10.2")
+
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation("androidx.compose.ui:ui-text-google-fonts")

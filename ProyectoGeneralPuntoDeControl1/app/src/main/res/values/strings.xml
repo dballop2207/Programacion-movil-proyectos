@@ -32,4 +32,10 @@
     <string name="texto_grande">Grande</string>
     <string name="config_guardar">Guardar</string>
     <string name="config_guardado">Configuración guardada</string>
+
+    <string name="salir">Salir</string>
+    <string name="dialogo_salir_titulo">Salir de la aplicación</string>
+    <string name="dialogo_salir_texto">¿Seguro que quieres salir?</string>
+    <string name="confirmar_salir">Sí, salir</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

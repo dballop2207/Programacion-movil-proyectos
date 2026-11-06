@@ -1,4 +1,4 @@
-package com.example.proyectogeneralpuntodecontrol1
+package com.example.proyectogeneralpuntodecontrol1.ui
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
@@ -24,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.proyectogeneralpuntodecontrol1.R
 
 // onVolver es la acción que se ejecuta para volver a inicio.
 // Esta pantalla no sabe CÓMO se vuelve; solo la llama.

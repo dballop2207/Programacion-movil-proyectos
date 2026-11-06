@@ -1,4 +1,4 @@
-package com.example.proyectogeneralpuntodecontrol1
+package com.example.proyectogeneralpuntodecontrol1.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
@@ -29,13 +29,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.AppTheme
+import com.example.proyectogeneralpuntodecontrol1.R
 
 //Esto son las 4 pantallas que hay en toda la aplicación, las usaremos para cambiarlas
 enum class Pantalla { INICIO, SOBRE_NOSOTROS, ACERCA_DE, CONFIGURACION }
 
 @Composable
 fun PantallaPrincipal() {
-    //Creamos un estado observable para mostar el contenido de la pantalla
+    //Creamos un estado observable para mostrar el contenido de la pantalla
+    //Nos enseña una pantalla específica según lo que pongamos, este es caso es el inicio.
     var pantalla by rememberSaveable { mutableStateOf(Pantalla.INICIO) }
 
     //Dependiendo de lo que pulsemos nos llevara a una pantalla u otra
