@@ -1,6 +1,13 @@
+// PANTALLA ACERCA DE
+// Muestra el logo, la descripción de la app, el autor y la licencia.
+// No tiene estado propio. onVolver es la acción para regresar y la decide
+// Navegacion.kt (navController.popBackStack()). El botón "atrás" del móvil
+// también funciona solo, porque el NavController lleva el historial.
+// Todos los textos salen de strings.xml (salvo el nombre propio del autor,
+// que no se traduce).
 package com.example.proyectogeneralpuntodecontrol1.ui
 
-import androidx.activity.compose.BackHandler
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,10 +17,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,28 +30,21 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.compose.AppTheme
 import com.example.proyectogeneralpuntodecontrol1.R
 
-// onVolver es la acción que se ejecuta para volver a inicio.
-// Esta pantalla no sabe CÓMO se vuelve; solo la llama.
-// Quien decide qué hace es PantallaPrincipal, que es quien la pasa.
 @Composable
 fun AcercaDe(onVolver: () -> Unit) {
-    // El gesto/botón "atrás" del móvil también ejecuta onVolver,
-    // así vuelve a inicio en vez de cerrar la app.
-    BackHandler(onBack = onVolver)
-
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        //Insertamos una imagen usando Image() y dentro
-        //ponemos painter = painterResource(id = R.drawable.image-que-buscamos).
         Image(
             painter = painterResource(id = R.drawable.logo_company),
-            contentDescription = "Logo de la compañía",
+            contentDescription = stringResource(R.string.logo_desc),
             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
             modifier = Modifier.size(128.dp)
         )
@@ -57,7 +58,6 @@ fun AcercaDe(onVolver: () -> Unit) {
         )
         Spacer(Modifier.height(16.dp))
 
-        //Carta para poner los datos
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
@@ -71,7 +71,7 @@ fun AcercaDe(onVolver: () -> Unit) {
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
-                    text = "Proyecto general: punto de control I",
+                    text = stringResource(R.string.proyecto_desc),
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -99,9 +99,7 @@ fun AcercaDe(onVolver: () -> Unit) {
         )
         Spacer(Modifier.height(12.dp))
 
-        OutlinedButton(
-            // Al pulsar "Go Back" se ejecuta onVolver, que en PantallaPrincipal
-            // pone pantalla = Pantalla.INICIO y se muestra la pantalla de inicio.
+        Button(
             onClick = onVolver,
             shape = MaterialTheme.shapes.medium,
             colors = ButtonDefaults.buttonColors(
@@ -110,9 +108,18 @@ fun AcercaDe(onVolver: () -> Unit) {
             ),
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
-                stringResource(R.string.volver)
-            )
+            Text(text = stringResource(R.string.volver))
+        }
+    }
+}
+
+@Preview(name = "Tema claro", showBackground = true)
+@Preview(name = "Tema oscuro", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun AcercaDePreview() {
+    AppTheme {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            AcercaDe(onVolver = {})
         }
     }
 }

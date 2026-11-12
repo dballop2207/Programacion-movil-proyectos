@@ -1,8 +1,22 @@
+// PANTALLA DE CONFIGURACIÓN (vista del MVVM)
+// La pantalla se divide en dos funciones:
+//  1. Configuracion: conecta con el ViewModel. No guarda estado propio.
+//  2. ConfiguracionContenido: solo dibuja (así funciona la Preview).
+// - Recibe el navController (lo pide el enunciado) para poder volver a
+//   Principal con popBackStack(), que quita esta pantalla de la pila.
+// - viewModel() da el ViewModel: lo crea la primera vez y luego reutiliza el mismo.
+// - LaunchedEffect(Unit) llama a cargar() una vez al entrar.
+// - Al pulsar Guardar se llama a viewModel.guardar { hayCambios -> ... }:
+//     · true  -> toast LARGO (Toast.LENGTH_LONG) y vuelve a Principal.
+//     · false -> toast CORTO (Toast.LENGTH_SHORT) y se queda aquí.
+// - Los textos de los toasts se leen arriba con stringResource porque es
+//   @Composable y no se puede llamar dentro del onClick.
+// - STATE HOISTING: Titulo, FilaSwitch, FilaCheckbox y Desplegable no
+//   guardan nada; reciben el valor y avisan con una función cuando cambia.
 package com.example.proyectogeneralpuntodecontrol1.ui
 
 import android.content.res.Configuration
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,47 +52,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.compose.AppTheme
-import com.example.proyectogeneralpuntodecontrol1.viewmodel.ConfiguracionViewModel
 import com.example.proyectogeneralpuntodecontrol1.R
+import com.example.proyectogeneralpuntodecontrol1.viewmodel.ConfiguracionViewModel
 
-// ============ PANTALLA CON VIEWMODEL ============
-// La pantalla ahora se divide en DOS funciones:
-//  1. Configuracion: conecta con el ViewModel (tiene "estado").
-//  2. ConfiguracionContenido: solo dibuja (no tiene estado).
-// Así la parte que dibuja se puede previsualizar sin ViewModel.
-
-// viewModel() es una función de Compose que nos da el ViewModel:
-// la primera vez lo crea y las siguientes devuelve el MISMO.
-// Ponerlo como parámetro con valor por defecto permite pasar otro
-// distinto si algún día hace falta (por ejemplo, en pruebas).
 @Composable
 fun Configuracion(
-    onVolver: () -> Unit,
+    navController: NavHostController,
     viewModel: ConfiguracionViewModel = viewModel()
 ) {
-    // El botón/gesto "atrás" del móvil vuelve a inicio en vez de cerrar la app.
-    BackHandler(onBack = onVolver)
-
-    // Hace falta para el Toast.
     val context = LocalContext.current
-
-    // Se lee aquí arriba porque stringResource es @Composable y no se
-    // puede llamar dentro de onGuardar (que no lo es).
     val mensajeGuardado = stringResource(R.string.config_guardado)
+    val mensajeSinCambios = stringResource(R.string.config_sin_cambios)
 
-    // Al entrar en la pantalla, pedimos al ViewModel que cargue lo guardado.
-    // Antes este LaunchedEffect leía el DataStore directamente;
-    // ahora solo le dice al ViewModel "carga", y él se encarga.
     LaunchedEffect(Unit) {
         viewModel.cargar()
     }
 
-    // Le pasamos a la parte visual los valores del ViewModel y las
-    // funciones para cambiarlos.
-    // viewModel::cambiarModoOscuro es una "referencia a función":
-    // pasamos la función en sí, sin ejecutarla. Equivale a escribir
-    // { viewModel.cambiarModoOscuro(it) }.
     ConfiguracionContenido(
         modoOscuro = viewModel.modoOscuro,
         idioma = viewModel.idioma,
@@ -87,19 +78,19 @@ fun Configuracion(
         onIdiomaCambio = viewModel::cambiarIdioma,
         onTamanoTextoCambio = viewModel::cambiarTamanoTexto,
         onGuardar = {
-            // Le pedimos al ViewModel que guarde, y cuando termine
-            // mostramos el Toast (mostrar mensajes es cosa de la pantalla).
-            viewModel.guardar {
-                Toast.makeText(context, mensajeGuardado, Toast.LENGTH_SHORT).show()
+            viewModel.guardar { hayCambios ->
+                if (hayCambios) {
+                    Toast.makeText(context, mensajeGuardado, Toast.LENGTH_LONG).show()
+                    navController.popBackStack()
+                } else {
+                    Toast.makeText(context, mensajeSinCambios, Toast.LENGTH_SHORT).show()
+                }
             }
         },
-        onVolver = onVolver
+        onVolver = { navController.popBackStack() }
     )
 }
 
-// ============ PARTE VISUAL (sin estado) ============
-// Recibe los valores y avisa cuando cambian. No sabe que existe
-// un ViewModel ni un DataStore: solo dibuja.
 @Composable
 fun ConfiguracionContenido(
     modoOscuro: Boolean,
@@ -124,7 +115,7 @@ fun ConfiguracionContenido(
         )
         Spacer(Modifier.height(12.dp))
 
-        // ---------- SWITCH: modo oscuro ----------
+        // SWITCH: modo oscuro
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp)) {
                 FilaSwitch(
@@ -136,12 +127,11 @@ fun ConfiguracionContenido(
         }
         Spacer(Modifier.height(12.dp))
 
-        // ---------- DESPLEGABLE: idioma ----------
+        // DESPLEGABLE: idioma
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Titulo(stringResource(R.string.config_idioma))
                 Desplegable(
-                    // Dos listas paralelas: posición 0 = "es" = "Español".
                     claves = listOf("es", "en"),
                     textos = listOf(
                         stringResource(R.string.idioma_es),
@@ -154,9 +144,7 @@ fun ConfiguracionContenido(
         }
         Spacer(Modifier.height(12.dp))
 
-        // ---------- Tamaño del texto (selección única) ----------
-        // Cada casilla está marcada solo si tamanoTexto coincide con su opción,
-        // así que solo puede haber una marcada a la vez.
+        // TAMAÑO DEL TEXTO (selección única)
         Card(modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Titulo(stringResource(R.string.config_tamano_texto))
@@ -167,9 +155,6 @@ fun ConfiguracionContenido(
         }
         Spacer(Modifier.height(12.dp))
 
-        // ---------- BOTÓN GUARDAR ----------
-        // Ya no hay scope.launch aquí: la pantalla solo avisa con onGuardar
-        // y el ViewModel se encarga de la corrutina.
         Button(
             onClick = onGuardar,
             shape = MaterialTheme.shapes.medium,
@@ -183,7 +168,6 @@ fun ConfiguracionContenido(
         }
         Spacer(Modifier.height(8.dp))
 
-        // Volver SIN guardar. Al volver a entrar, cargar() repone lo guardado.
         OutlinedButton(
             onClick = onVolver,
             shape = MaterialTheme.shapes.medium,
@@ -194,10 +178,6 @@ fun ConfiguracionContenido(
     }
 }
 
-// ============ Funciones de despliegue ============
-// No guardan nada: reciben el valor y avisan cuando cambia.
-
-// Texto grande y en negrita para los títulos de cada tarjeta.
 @Composable
 fun Titulo(texto: String) {
     Text(
@@ -207,8 +187,6 @@ fun Titulo(texto: String) {
     )
 }
 
-// Fila con un texto a la izquierda y un interruptor a la derecha.
-// Esto es para el modo oscuro.
 @Composable
 fun FilaSwitch(texto: String, activado: Boolean, onCambio: (Boolean) -> Unit) {
     Row(
@@ -219,14 +197,12 @@ fun FilaSwitch(texto: String, activado: Boolean, onCambio: (Boolean) -> Unit) {
             text = texto,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
-            // Ocupa todo el espacio libre y empuja el Switch a la derecha.
             modifier = Modifier.weight(1f)
         )
         Switch(checked = activado, onCheckedChange = onCambio)
     }
 }
 
-// Casilla con su texto. Se usa para elegir el tamaño del texto.
 @Composable
 fun FilaCheckbox(texto: String, marcado: Boolean, onClick: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -235,20 +211,16 @@ fun FilaCheckbox(texto: String, marcado: Boolean, onClick: () -> Unit) {
     }
 }
 
-// Menú desplegable genérico.
 @Composable
 fun Desplegable(
-    claves: List<String>,       // lo que se guarda: "es", "en"
-    textos: List<String>,       // lo que se ve: "Español", "English"
+    claves: List<String>,
+    textos: List<String>,
     seleccionada: String,
     onSeleccion: (String) -> Unit
 ) {
-    // Si la lista está abierta o no. Es un detalle visual que al
-    // ViewModel no le importa, por eso se queda aquí con remember.
     var abierto by remember { mutableStateOf(false) }
     val posicion = claves.indexOf(seleccionada)
 
-    // Box para que el menú aparezca justo debajo del botón.
     Box {
         OutlinedButton(
             onClick = { abierto = true },
@@ -271,18 +243,8 @@ fun Desplegable(
     }
 }
 
-// La preview usa ConfiguracionContenido con valores de ejemplo, porque
-// la vista previa de Android Studio no puede crear un AndroidViewModel.
-// Esta es la gran ventaja de separar la parte visual.
-@Preview(
-    name = "Tema claro",
-    showBackground = true
-)
-@Preview(
-    name = "Tema oscuro",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@Preview(name = "Tema claro", showBackground = true)
+@Preview(name = "Tema oscuro", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ConfiguracionPreview() {
     AppTheme {

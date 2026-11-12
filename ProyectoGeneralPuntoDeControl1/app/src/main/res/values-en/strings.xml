@@ -13,7 +13,7 @@
     <string name="sobre_nosotros">About us</string>
     <string name="oficina_imagen_desc">Office image</string>
     <string name="descripcion_empresa">Pica Studios was founded with the goal of creating video games for gamers. Focused on video game development, it offers a place where you can have fun while you work.</string>
-    <string name="horario">Schedual</string>
+    <string name="horario">Schedule</string>
     <string name="horario_semana">Monday - Friday: 9:00 - 15:00</string>
     <string name="boton_configuracion">Settings</string>
     <string name="config_titulo">Settings</string>
@@ -32,4 +32,11 @@
     <string name="dialogo_salir_texto">Are you sure you want to exit?</string>
     <string name="confirmar_salir">Yes, exit</string>
     <string name="cancelar">Cancel</string>
+    <string name="config_sin_cambios">You haven\'t changed anything</string>
+    <string name="logo_desc">Company logo</string>
+    <string name="proyecto_desc">General project: checkpoint III</string>
+
+    <!--Pokedex-->
+    <string name="pokedex_titulo">Pokédex</string>
+    <string name="pokemon_altura_peso">Height: %1$s · Weight: %2$s</string>
 </resources>

@@ -38,4 +38,11 @@
     <string name="dialogo_salir_texto">¿Seguro que quieres salir?</string>
     <string name="confirmar_salir">Sí, salir</string>
     <string name="cancelar">Cancelar</string>
+    <string name="config_sin_cambios">No has cambiado nada</string>
+    <string name="logo_desc">Logo de la compañía</string>
+    <string name="proyecto_desc">Proyecto general: punto de control III</string>
+
+    <!--Pokedex-->
+    <string name="pokedex_titulo">Pokédex</string>
+    <string name="pokemon_altura_peso">Altura: %1$s · Peso: %2$s</string>
 </resources>

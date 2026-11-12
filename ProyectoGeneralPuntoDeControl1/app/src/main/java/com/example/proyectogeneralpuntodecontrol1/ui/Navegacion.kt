@@ -1,25 +1,3 @@
-package com.example.proyectogeneralpuntodecontrol1.ui
-
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Density
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import com.example.compose.AppTheme
-import com.example.proyectogeneralpuntodecontrol1.datos.ConfiguracionDataStore
-import com.example.proyectogeneralpuntodecontrol1.model.Rutas
-
 // NAVEGACIÓN: TEMA + GRÁFICO DE NAVEGACIÓN
 // Esta función envuelve TODA la app, por eso aquí se hace lo que antes
 // estaba en MainActivity:
@@ -37,8 +15,29 @@ import com.example.proyectogeneralpuntodecontrol1.model.Rutas
 //    funciona solo, porque el NavController lleva el historial.
 //    innerPadding se pasa al NavHost para que nada quede debajo de las
 //    barras del sistema.
-// De momento la ruta Principal muestra InicioPagina. Cuando hagamos
-// Principal.kt (el menú), la cambiaremos.
+// 5. Salir: (context as Activity).finish() cierra la Activity, es decir, la app.
+package com.example.proyectogeneralpuntodecontrol1.ui
+
+import android.app.Activity
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Density
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.example.compose.AppTheme
+import com.example.proyectogeneralpuntodecontrol1.model.ConfiguracionDataStore
+import com.example.proyectogeneralpuntodecontrol1.model.Rutas
 
 @Composable
 fun Navegacion(navController: NavHostController) {
@@ -68,10 +67,12 @@ fun Navegacion(navController: NavHostController) {
                     modifier = Modifier.padding(innerPadding)
                 ) {
                     composable(Rutas.Principal.ruta) {
-                        InicioPagina(
-                            onSobreNosotros = { navController.navigate(Rutas.SobreNosotros.ruta) },
+                        Principal(
                             onAcercaDe = { navController.navigate(Rutas.AcercaDe.ruta) },
-                            onConfiguracion = { navController.navigate(Rutas.Configuracion.ruta) }
+                            onSobreNosotros = { navController.navigate(Rutas.SobreNosotros.ruta) },
+                            onConfiguracion = { navController.navigate(Rutas.Configuracion.ruta) },
+                            onPokedex = { navController.navigate(Rutas.Pokedex.ruta) },     // ← nueva
+                            onSalir = { (context as Activity).finish() }
                         )
                     }
                     composable(Rutas.SobreNosotros.ruta) {
@@ -81,7 +82,10 @@ fun Navegacion(navController: NavHostController) {
                         AcercaDe(onVolver = { navController.popBackStack() })
                     }
                     composable(Rutas.Configuracion.ruta) {
-                        Configuracion(onVolver = { navController.popBackStack() })
+                        Configuracion(navController)
+                    }
+                    composable(Rutas.Pokedex.ruta) {
+                        Pokedex(onVolver = { navController.popBackStack() })
                     }
                 }
             }

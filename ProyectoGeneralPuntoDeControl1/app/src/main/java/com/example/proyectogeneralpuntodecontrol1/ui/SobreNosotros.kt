@@ -1,7 +1,11 @@
+// PANTALLA SOBRE NOSOTROS
+// Pantalla informativa: no tiene estado propio, solo muestra contenido.
+// onVolver es la acción para regresar; la decide Navegacion.kt
+// (navController.popBackStack()). El botón "atrás" del móvil también
+// funciona solo, porque el NavController lleva el historial.
 package com.example.proyectogeneralpuntodecontrol1.ui
 
 import android.content.res.Configuration
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,10 +15,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,11 +36,6 @@ import com.example.proyectogeneralpuntodecontrol1.R
 
 @Composable
 fun SobreNosotros(onVolver: () -> Unit) {
-
-    //Esto lo que hará será que si tocamos el botón del volver nos llevará a la pantalla de inicio.
-    //Se explica mejor más abajo
-    BackHandler(onBack = onVolver)
-
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -65,12 +64,8 @@ fun SobreNosotros(onVolver: () -> Unit) {
         )
         Spacer(Modifier.height(12.dp))
 
-        Card(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
-            ) {
+        Card(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier.padding(16.dp)) {
                 Text(
                     text = stringResource(R.string.horario),
                     style = MaterialTheme.typography.titleLarge,
@@ -85,9 +80,7 @@ fun SobreNosotros(onVolver: () -> Unit) {
         }
         Spacer(Modifier.height(12.dp))
 
-        OutlinedButton(
-            // Al pulsar "Go Back" se ejecuta onVolver, que en PantallaPrincipal
-            // pone pantalla = Pantalla.INICIO y se muestra la pantalla de inicio.
+        Button(
             onClick = onVolver,
             shape = MaterialTheme.shapes.medium,
             colors = ButtonDefaults.buttonColors(
@@ -101,15 +94,8 @@ fun SobreNosotros(onVolver: () -> Unit) {
     }
 }
 
-@Preview(
-    name = "Tema claro",
-    showBackground = true
-)
-@Preview(
-    name = "Tema oscuro",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@Preview(name = "Tema claro", showBackground = true)
+@Preview(name = "Tema oscuro", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun NosotrosPreview() {
     AppTheme {
