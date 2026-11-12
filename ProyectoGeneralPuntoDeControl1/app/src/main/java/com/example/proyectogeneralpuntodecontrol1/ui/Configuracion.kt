@@ -56,6 +56,7 @@ import androidx.navigation.NavHostController
 import com.example.compose.AppTheme
 import com.example.proyectogeneralpuntodecontrol1.R
 import com.example.proyectogeneralpuntodecontrol1.viewmodel.ConfiguracionViewModel
+import com.example.proyectogeneralpuntodecontrol1.viewmodel.ResultadoGuardado
 
 @Composable
 fun Configuracion(
@@ -65,6 +66,7 @@ fun Configuracion(
     val context = LocalContext.current
     val mensajeGuardado = stringResource(R.string.config_guardado)
     val mensajeSinCambios = stringResource(R.string.config_sin_cambios)
+    val mensajeNoValido = stringResource(R.string.config_combinacion_no_valida)
 
     LaunchedEffect(Unit) {
         viewModel.cargar()
@@ -78,12 +80,16 @@ fun Configuracion(
         onIdiomaCambio = viewModel::cambiarIdioma,
         onTamanoTextoCambio = viewModel::cambiarTamanoTexto,
         onGuardar = {
-            viewModel.guardar { hayCambios ->
-                if (hayCambios) {
-                    Toast.makeText(context, mensajeGuardado, Toast.LENGTH_LONG).show()
-                    navController.popBackStack()
-                } else {
-                    Toast.makeText(context, mensajeSinCambios, Toast.LENGTH_SHORT).show()
+            viewModel.guardar { resultado ->
+                when (resultado) {
+                    ResultadoGuardado.GUARDADO -> {
+                        Toast.makeText(context, mensajeGuardado, Toast.LENGTH_LONG).show()
+                        navController.popBackStack()
+                    }
+                    ResultadoGuardado.SIN_CAMBIOS ->
+                        Toast.makeText(context, mensajeSinCambios, Toast.LENGTH_SHORT).show()
+                    ResultadoGuardado.COMBINACION_NO_VALIDA ->
+                        Toast.makeText(context, mensajeNoValido, Toast.LENGTH_SHORT).show()
                 }
             }
         },

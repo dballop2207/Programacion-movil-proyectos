@@ -27,6 +27,8 @@
     <string name="texto_grande">Large</string>
     <string name="config_guardar">Save</string>
     <string name="config_guardado">Settings saved</string>
+    <string name="config_combinacion_no_valida">Dark mode can\'t be used with small text</string>
+
     <string name="salir">Exit</string>
     <string name="dialogo_salir_titulo">Exit the app</string>
     <string name="dialogo_salir_texto">Are you sure you want to exit?</string>

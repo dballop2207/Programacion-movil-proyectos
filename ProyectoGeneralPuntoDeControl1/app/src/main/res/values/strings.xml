@@ -32,6 +32,7 @@
     <string name="texto_grande">Grande</string>
     <string name="config_guardar">Guardar</string>
     <string name="config_guardado">Configuración guardada</string>
+    <string name="config_combinacion_no_valida">El modo oscuro no se puede usar con texto pequeño</string>
 
     <string name="salir">Salir</string>
     <string name="dialogo_salir_titulo">Salir de la aplicación</string>

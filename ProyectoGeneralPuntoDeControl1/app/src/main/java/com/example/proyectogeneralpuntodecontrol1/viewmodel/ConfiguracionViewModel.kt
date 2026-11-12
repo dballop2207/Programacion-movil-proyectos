@@ -31,6 +31,8 @@ import com.example.proyectogeneralpuntodecontrol1.model.ConfiguracionDataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
+// Los tres resultados posibles al pulsar Guardar.
+enum class ResultadoGuardado { GUARDADO, SIN_CAMBIOS, COMBINACION_NO_VALIDA }
 class ConfiguracionViewModel(application: Application) : AndroidViewModel(application) {
 
     private val dataStore = ConfiguracionDataStore(application)
@@ -58,18 +60,34 @@ class ConfiguracionViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 
-    fun cambiarModoOscuro(valor: Boolean) { modoOscuro = valor }
-    fun cambiarIdioma(valor: String) { idioma = valor }
-    fun cambiarTamanoTexto(valor: String) { tamanoTexto = valor }
+    fun cambiarModoOscuro(valor: Boolean) {
+        modoOscuro = valor
+    }
+
+    fun cambiarIdioma(valor: String) {
+        idioma = valor
+    }
+
+    fun cambiarTamanoTexto(valor: String) {
+        tamanoTexto = valor
+    }
 
     private fun hayCambios(): Boolean =
         modoOscuro != modoOscuroGuardado ||
-        idioma != idiomaGuardado ||
-        tamanoTexto != tamanoGuardado
+                idioma != idiomaGuardado ||
+                tamanoTexto != tamanoGuardado
 
-    fun guardar(onResultado: (Boolean) -> Unit) {
+    // Combinación prohibida: modo oscuro + texto pequeño (se lee peor).
+    private fun combinacionValida(): Boolean =
+        !(modoOscuro && tamanoTexto == "pequeno")
+
+    fun guardar(onResultado: (ResultadoGuardado) -> Unit) {
         if (!hayCambios()) {
-            onResultado(false)
+            onResultado(ResultadoGuardado.SIN_CAMBIOS)
+            return
+        }
+        if (!combinacionValida()) {
+            onResultado(ResultadoGuardado.COMBINACION_NO_VALIDA)
             return
         }
 
@@ -80,7 +98,7 @@ class ConfiguracionViewModel(application: Application) : AndroidViewModel(applic
             idiomaGuardado = idioma
             tamanoGuardado = tamanoTexto
 
-            onResultado(true)
+            onResultado(ResultadoGuardado.GUARDADO)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 getApplication<Application>().getSystemService(LocaleManager::class.java)
