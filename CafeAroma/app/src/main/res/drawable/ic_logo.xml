@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Logo provisional (taza de café). Sustitúyelo por tu propia imagen si quieres. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    <!-- Fondo circular -->
+    <path
+        android:fillColor="#FFDCC6"
+        android:pathData="M60,4a56,56 0,1 1,0 112a56,56 0,1 1,0 -112z" />
+    <!-- Vapor -->
+    <path
+        android:strokeColor="#7B4B2A"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M48,22 C42,30 54,34 48,42 M62,18 C56,26 68,30 62,38 M76,22 C70,30 82,34 76,42" />
+    <!-- Taza -->
+    <path
+        android:fillColor="#7B4B2A"
+        android:pathData="M30,50 L90,50 L86,82 C85,90 78,96 70,96 L50,96 C42,96 35,90 34,82 Z" />
+    <!-- Asa -->
+    <path
+        android:strokeColor="#7B4B2A"
+        android:strokeWidth="6"
+        android:fillColor="#00000000"
+        android:pathData="M89,58 C102,58 102,78 87,78" />
+    <!-- Platillo -->
+    <path
+        android:fillColor="#52643F"
+        android:pathData="M24,100 L96,100 C96,104 92,106 88,106 L32,106 C28,106 24,104 24,100 Z" />
+</vector>

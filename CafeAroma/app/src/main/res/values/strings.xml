@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Café Aroma</string>
+
+    <!-- Inicio -->
+    <string name="inicio_eslogan">Café de especialidad desde 1998</string>
+    <string name="boton_sobre_nosotros">Sobre nosotros</string>
+    <string name="boton_acerca_de">Acerca de</string>
+    <string name="volver">Volver</string>
+    <string name="desc_logo">Logotipo de Café Aroma</string>
+
+    <!-- Sobre nosotros -->
+    <string name="sobre_titulo">Sobre nosotros</string>
+    <string name="desc_cafeteria">Interior de la cafetería</string>
+    <string name="sobre_historia">Café Aroma nació como un pequeño tostadero familiar. Hoy seleccionamos granos de origen único, los tostamos cada semana y los servimos en un espacio pensado para charlar, trabajar o simplemente desconectar.</string>
+    <string name="sobre_horario_titulo">Horario</string>
+    <string name="sobre_horario">Lunes a viernes: 8:00 – 20:00\nSábados y domingos: 9:00 – 14:00</string>
+    <string name="sobre_contacto_titulo">Contacta con nosotros</string>
+
+    <!-- Datos de contacto (no se traducen) -->
+    <string name="contacto_web" translatable="false">https://www.example.com</string>
+    <string name="contacto_telefono" translatable="false">+34600000000</string>
+    <string name="contacto_email" translatable="false">info@cafearoma.example</string>
+    <string name="contacto_direccion" translatable="false">Plaza Mayor 1, Madrid</string>
+
+    <!-- Acciones (intents) -->
+    <string name="accion_web">Web</string>
+    <string name="accion_llamar">Llamar</string>
+    <string name="accion_email">Email</string>
+    <string name="accion_mapa">Cómo llegar</string>
+    <string name="accion_compartir">Compartir</string>
+    <string name="email_asunto">Consulta desde la app</string>
+    <string name="compartir_texto">¡Mira esta cafetería! %1$s</string>
+    <string name="error_sin_app">No hay ninguna aplicación para abrir esto</string>
+
+    <!-- Acerca de -->
+    <string name="acerca_version">Versión 1.0</string>
+    <string name="acerca_autores_titulo">Autores</string>
+    <string name="acerca_autor_1">Nombre Apellido 1</string>
+    <string name="acerca_autor_2">Nombre Apellido 2</string>
+    <string name="acerca_centro">Proyecto de clase · Curso 2026-2027</string>
+    <string name="acerca_licencia_titulo">Licencia</string>
+    <string name="acerca_licencia">Esta aplicación se distribuye bajo la licencia Creative Commons Reconocimiento-NoComercial-CompartirIgual 4.0 (CC BY-NC-SA 4.0).</string>
+    <string name="acerca_ver_licencia">Ver licencia completa</string>
+    <string name="licencia_url" translatable="false">https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es</string>
+    <string name="acerca_copyright">© 2026 Café Aroma. Todos los derechos reservados.</string>
+</resources>

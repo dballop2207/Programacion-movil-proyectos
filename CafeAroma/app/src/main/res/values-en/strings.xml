@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Café Aroma</string>
+
+    <!-- Home -->
+    <string name="inicio_eslogan">Specialty coffee since 1998</string>
+    <string name="boton_sobre_nosotros">About us</string>
+    <string name="boton_acerca_de">About the app</string>
+    <string name="volver">Back</string>
+    <string name="desc_logo">Café Aroma logo</string>
+
+    <!-- About us -->
+    <string name="sobre_titulo">About us</string>
+    <string name="desc_cafeteria">Inside the coffee shop</string>
+    <string name="sobre_historia">Café Aroma started as a small family roastery. Today we select single-origin beans, roast them every week and serve them in a space designed for chatting, working or simply unwinding.</string>
+    <string name="sobre_horario_titulo">Opening hours</string>
+    <string name="sobre_horario">Monday to Friday: 8:00 – 20:00\nSaturday and Sunday: 9:00 – 14:00</string>
+    <string name="sobre_contacto_titulo">Get in touch</string>
+
+    <!-- Actions (intents) -->
+    <string name="accion_web">Website</string>
+    <string name="accion_llamar">Call</string>
+    <string name="accion_email">Email</string>
+    <string name="accion_mapa">Directions</string>
+    <string name="accion_compartir">Share</string>
+    <string name="email_asunto">Question from the app</string>
+    <string name="compartir_texto">Check out this coffee shop! %1$s</string>
+    <string name="error_sin_app">No app available to open this</string>
+
+    <!-- About the app -->
+    <string name="acerca_version">Version 1.0</string>
+    <string name="acerca_autores_titulo">Authors</string>
+    <string name="acerca_autor_1">Name Surname 1</string>
+    <string name="acerca_autor_2">Name Surname 2</string>
+    <string name="acerca_centro">Class project · 2026-2027</string>
+    <string name="acerca_licencia_titulo">License</string>
+    <string name="acerca_licencia">This app is released under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 license (CC BY-NC-SA 4.0).</string>
+    <string name="acerca_ver_licencia">View full license</string>
+    <string name="acerca_copyright">© 2026 Café Aroma. All rights reserved.</string>
+</resources>

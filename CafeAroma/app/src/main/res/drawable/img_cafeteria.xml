@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ilustración provisional. Para usar una foto real, copia "img_cafeteria.jpg"
+     en res/drawable y borra este archivo (el nombre debe coincidir). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="180dp"
+    android:viewportWidth="360"
+    android:viewportHeight="180">
+    <!-- Pared -->
+    <path android:fillColor="#F3E3D3" android:pathData="M0,0h360v180h-360z" />
+    <!-- Ventana -->
+    <path android:fillColor="#B9D7E8" android:pathData="M30,25h110v80h-110z" />
+    <path android:strokeColor="#7B4B2A" android:strokeWidth="5" android:pathData="M30,25h110v80h-110z M85,25v80 M30,65h110" />
+    <!-- Estantería -->
+    <path android:fillColor="#7B4B2A" android:pathData="M190,40h140v6h-140z M190,80h140v6h-140z" />
+    <path android:fillColor="#52643F" android:pathData="M200,22h14v18h-14z M222,26h14v14h-14z M290,22h14v18h-14z" />
+    <path android:fillColor="#C47A45" android:pathData="M250,60h16v20h-16z M274,62h16v18h-16z M300,58h16v22h-16z" />
+    <!-- Barra -->
+    <path android:fillColor="#5A3418" android:pathData="M0,130h360v50h-360z" />
+    <path android:fillColor="#7B4B2A" android:pathData="M0,122h360v10h-360z" />
+    <!-- Tazas sobre la barra -->
+    <path android:fillColor="#FFFFFF" android:pathData="M60,104h22l-3,18h-16z M180,104h22l-3,18h-16z M280,104h22l-3,18h-16z" />
+</vector>

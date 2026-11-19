@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "109799687873",
+    "project_id": "proyectocontrol-d4280",
+    "storage_bucket": "proyectocontrol-d4280.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109799687873:android:e6721d9ba19437f414b640",
+        "android_client_info": {
+          "package_name": "com.example.proyectogeneralpuntodecontrol1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh1bPqEN2VHPDvNxaZfqvSoT3p6qTOOos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

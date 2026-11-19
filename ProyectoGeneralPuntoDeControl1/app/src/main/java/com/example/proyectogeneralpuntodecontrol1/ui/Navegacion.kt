@@ -1,24 +1,5 @@
-// NAVEGACIÓN: TEMA + GRÁFICO DE NAVEGACIÓN
-// Esta función envuelve TODA la app, por eso aquí se hace lo que antes
-// estaba en MainActivity:
-// 1. DataStore: lee el modo oscuro y el tamaño de texto guardados.
-//    collectAsState los escucha, así que al guardar en Configuración la app
-//    cambia sola de tema y de tamaño de letra.
-// 2. Escala de letra: CompositionLocalProvider multiplica el tamaño de todos
-//    los textos según la opción guardada.
-// 3. AppTheme + Scaffold: aplican los colores del tema y el fondo.
-// 4. NavHost: es el "gráfico de navegación", el hueco donde se dibuja la
-//    pantalla actual. Dentro, cada composable(ruta) { } dice qué pantalla
-//    se muestra para cada ruta. startDestination es la primera pantalla.
-//    Para ir a otra pantalla se usa navController.navigate(ruta), y para
-//    volver, navController.popBackStack(). El botón "atrás" del móvil
-//    funciona solo, porque el NavController lleva el historial.
-//    innerPadding se pasa al NavHost para que nada quede debajo de las
-//    barras del sistema.
-// 5. Salir: (context as Activity).finish() cierra la Activity, es decir, la app.
 package com.example.proyectogeneralpuntodecontrol1.ui
 
-import android.app.Activity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -36,8 +17,28 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.compose.AppTheme
-import com.example.proyectogeneralpuntodecontrol1.model.ConfiguracionDataStore
+import com.example.proyectogeneralpuntodecontrol1.datos.ConfiguracionDataStore
 import com.example.proyectogeneralpuntodecontrol1.model.Rutas
+
+// NAVEGACIÓN: TEMA + GRÁFICO DE NAVEGACIÓN
+// Esta función envuelve TODA la app, por eso aquí se hace lo que antes
+// estaba en MainActivity:
+// 1. DataStore: lee el modo oscuro y el tamaño de texto guardados.
+//    collectAsState los escucha, así que al guardar en Configuración la app
+//    cambia sola de tema y de tamaño de letra.
+// 2. Escala de letra: CompositionLocalProvider multiplica el tamaño de todos
+//    los textos según la opción guardada.
+// 3. AppTheme + Scaffold: aplican los colores del tema y el fondo.
+// 4. NavHost: es el "gráfico de navegación", el hueco donde se dibuja la
+//    pantalla actual. Dentro, cada composable(ruta) { } dice qué pantalla
+//    se muestra para cada ruta. startDestination es la primera pantalla.
+//    Para ir a otra pantalla se usa navController.navigate(ruta), y para
+//    volver, navController.popBackStack(). El botón "atrás" del móvil
+//    funciona solo, porque el NavController lleva el historial.
+//    innerPadding se pasa al NavHost para que nada quede debajo de las
+//    barras del sistema.
+// De momento la ruta Principal muestra InicioPagina. Cuando hagamos
+// Principal.kt (el menú), la cambiaremos.
 
 @Composable
 fun Navegacion(navController: NavHostController) {
@@ -67,12 +68,10 @@ fun Navegacion(navController: NavHostController) {
                     modifier = Modifier.padding(innerPadding)
                 ) {
                     composable(Rutas.Principal.ruta) {
-                        Principal(
-                            onAcercaDe = { navController.navigate(Rutas.AcercaDe.ruta) },
+                        InicioPagina(
                             onSobreNosotros = { navController.navigate(Rutas.SobreNosotros.ruta) },
-                            onConfiguracion = { navController.navigate(Rutas.Configuracion.ruta) },
-                            onPokedex = { navController.navigate(Rutas.Pokedex.ruta) },     // ← nueva
-                            onSalir = { (context as Activity).finish() }
+                            onAcercaDe = { navController.navigate(Rutas.AcercaDe.ruta) },
+                            onConfiguracion = { navController.navigate(Rutas.Configuracion.ruta) }
                         )
                     }
                     composable(Rutas.SobreNosotros.ruta) {
@@ -82,10 +81,7 @@ fun Navegacion(navController: NavHostController) {
                         AcercaDe(onVolver = { navController.popBackStack() })
                     }
                     composable(Rutas.Configuracion.ruta) {
-                        Configuracion(navController)
-                    }
-                    composable(Rutas.Pokedex.ruta) {
-                        Pokedex(onVolver = { navController.popBackStack() })
+                        Configuracion(onVolver = { navController.popBackStack() })
                     }
                 }
             }

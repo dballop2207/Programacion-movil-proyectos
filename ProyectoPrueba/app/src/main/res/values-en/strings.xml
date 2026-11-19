@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ProyectoPrueba</string>
+    <string name="indicador">Card</string>
+    <string name="prueba1">Test 1</string>
+    <string name="prueba2">Test 2</string>
+    <string name="prueba3">Test 3</string>
+    <string name="prueba4">Test 4</string>
+    <string name="prueba5">Test 5</string>
+    <string name="pulsado">Press</string>
+    <string name="resetealo">Reset</string>
+    <string name="alerta">The button hasn\'t been press</string>
+</resources>
