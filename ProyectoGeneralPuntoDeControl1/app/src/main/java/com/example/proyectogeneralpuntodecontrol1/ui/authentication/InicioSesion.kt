@@ -16,11 +16,13 @@ import com.example.proyectogeneralpuntodecontrol1.R
 import com.example.proyectogeneralpuntodecontrol1.viewmodel.AuthViewModel
 import com.example.proyectogeneralpuntodecontrol1.viewmodel.EstadoAuth
 
+// onVolver: lo decide Navegacion (volver a Principal)
 @Composable
 fun InicioSesion(
     viewModel: AuthViewModel,
     onSesionIniciada: () -> Unit,
-    onIrARegistro: () -> Unit
+    onIrARegistro: () -> Unit,
+    onVolver: () -> Unit
 ) {
     var correo by remember { mutableStateOf("") }
     var contrasena by remember { mutableStateOf("") }
@@ -69,6 +71,15 @@ fun InicioSesion(
         }
         TextButton(onClick = onIrARegistro) {
             Text(stringResource(R.string.ir_registro))
+        }
+        // Botón Volver con el mismo estilo que el de las otras pantallas
+        Spacer(Modifier.height(8.dp))
+        OutlinedButton(
+            onClick = onVolver,
+            shape = MaterialTheme.shapes.medium,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(stringResource(R.string.volver))
         }
     }
 }

@@ -1,4 +1,9 @@
+<!-- English texts: the usual ones + Pokédex (PC4) + login/sign up and session button (PC5) -->
 <resources>
+    <!-- About texts: project description and logo description (for accessibility) -->
+    <string name="proyecto_desc">General project for Multimedia and Mobile Device Programming (2nd year DAM)</string>
+    <string name="logo_desc">Estudios Pica logo</string>
+
     <string name="app_name">ProyectoGeneralPuntoDeControl1</string>
     <string name="acerca_de">About us</string>
     <string name="ayuda">Help</string>
@@ -13,7 +18,7 @@
     <string name="sobre_nosotros">About us</string>
     <string name="oficina_imagen_desc">Office image</string>
     <string name="descripcion_empresa">Pica Studios was founded with the goal of creating video games for gamers. Focused on video game development, it offers a place where you can have fun while you work.</string>
-    <string name="horario">Schedual</string>
+    <string name="horario">Schedule</string>
     <string name="horario_semana">Monday - Friday: 9:00 - 15:00</string>
     <string name="boton_configuracion">Settings</string>
     <string name="config_titulo">Settings</string>
@@ -32,4 +37,24 @@
     <string name="dialogo_salir_texto">Are you sure you want to exit?</string>
     <string name="confirmar_salir">Yes, exit</string>
     <string name="cancelar">Cancel</string>
+
+    <!-- Pokédex -->
+    <string name="pokedex_titulo">Pokédex</string>
+    <string name="pokemon_altura_peso">Height: %1$s · Weight: %2$s</string>
+
+    <!-- Login and sign up -->
+    <string name="login_titulo">Log in</string>
+    <string name="registro_titulo">Create account</string>
+    <string name="correo">Email</string>
+    <string name="contrasena">Password</string>
+    <string name="entrar">Log in</string>
+    <string name="registrarse">Sign up</string>
+    <string name="ir_registro">No account? Sign up</string>
+    <string name="ir_login">Already have an account? Log in</string>
+    <string name="auth_campos_vacios">Fill in the email and password</string>
+    <string name="auth_error">Error: %1$s</string>
+    <string name="iniciar_sesion">Log in</string>
+    <string name="cerrar_sesion">Log out</string>
+    <string name="sesion_de">Logged in as: %1$s</string>
+    <string name="sin_sesion">You are not logged in</string>
 </resources>

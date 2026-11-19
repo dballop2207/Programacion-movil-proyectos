@@ -1,3 +1,7 @@
+// PANTALLA PRINCIPAL (MENÚ): logo, estado de la sesión y tarjetas que llevan a cada pantalla.
+// No sabe navegar ni sabe de Firebase: recibe datos (conSesion, correo) y funciones (onAlgo) desde Navegacion.
+// El Text muestra el correo si hay sesión; el TextButton cambia entre "Iniciar sesión" y "Cerrar sesión" según conSesion.
+// mostrarDialogo controla el AlertDialog de salir (estado visual, por eso va con remember aquí).
 package com.example.proyectogeneralpuntodecontrol1.ui
 
 import android.content.res.Configuration
@@ -27,35 +31,22 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.AppTheme
 import com.example.proyectogeneralpuntodecontrol1.R
 
-// PANTALLA PRINCIPAL (MENÚ)
-// Muestra el logo y un menú hecho con tarjetas (ElevatedCard). Cada tarjeta
-// es pulsable gracias a su parámetro onClick y lleva a una pantalla.
-// - La pantalla NO sabe navegar: recibe funciones (onAcercaDe, onSalir...)
-//   y las llama al pulsar. Quien decide qué hacen es Navegacion.kt, que es
-//   quien tiene el navController. Así la pantalla es reutilizable y se
-//   puede previsualizar sin navegación.
-// - OpcionMenu es una función pequeña para no repetir el mismo código de
-//   tarjeta cuatro veces: recibe el texto y la acción.
-// - DIÁLOGO DE SALIR: mostrarDialogo es un estado (true/false). Al pulsar
-//   "Salir" se pone a true y Compose dibuja el AlertDialog. El diálogo tiene:
-//     · onDismissRequest: qué hacer si se toca fuera o se pulsa atrás (cerrarlo).
-//     · confirmButton: llama a onSalir, que cierra la app.
-//     · dismissButton: lo cierra poniendo mostrarDialogo a false.
-//   Este estado se queda aquí con remember porque es un detalle visual que
-//   solo le importa a esta pantalla.
-// - Todos los textos salen de strings.xml, así que se traducen solos, y los
-//   colores y estilos son los del tema (MaterialTheme).
-
 @Composable
 fun Principal(
+    conSesion: Boolean,
+    correo: String?,
+    onIniciarSesion: () -> Unit,
+    onCerrarSesion: () -> Unit,
     onAcercaDe: () -> Unit,
     onSobreNosotros: () -> Unit,
     onConfiguracion: () -> Unit,
+    onPokedex: () -> Unit,
     onSalir: () -> Unit
 ) {
     var mostrarDialogo by remember { mutableStateOf(false) }
@@ -79,11 +70,21 @@ fun Principal(
             text = stringResource(R.string.desc_logo),
             style = MaterialTheme.typography.bodyMedium
         )
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(8.dp))
+        Text(
+            text = if (conSesion) stringResource(R.string.sesion_de, correo ?: "") else stringResource(R.string.sin_sesion),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.primary
+        )
+        TextButton(onClick = if (conSesion) onCerrarSesion else onIniciarSesion) {
+            Text(if (conSesion) stringResource(R.string.cerrar_sesion) else stringResource(R.string.iniciar_sesion))
+        }
+        Spacer(Modifier.height(8.dp))
 
         OpcionMenu(stringResource(R.string.acerca_de), onAcercaDe)
         OpcionMenu(stringResource(R.string.ayuda), onSobreNosotros)
         OpcionMenu(stringResource(R.string.boton_configuracion), onConfiguracion)
+        OpcionMenu(stringResource(R.string.pokedex_titulo), onPokedex)
         OpcionMenu(stringResource(R.string.salir)) { mostrarDialogo = true }
     }
 
@@ -119,7 +120,10 @@ fun OpcionMenu(texto: String, onClick: () -> Unit) {
             text = texto,
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(20.dp)
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp)
         )
     }
 }
@@ -130,7 +134,10 @@ fun OpcionMenu(texto: String, onClick: () -> Unit) {
 fun PrincipalPreview() {
     AppTheme {
         Surface(color = MaterialTheme.colorScheme.background) {
-            Principal(onAcercaDe = {}, onSobreNosotros = {}, onConfiguracion = {}, onSalir = {})
+            Principal(
+                conSesion = false, correo = null, onIniciarSesion = {}, onCerrarSesion = {},
+                onAcercaDe = {}, onSobreNosotros = {}, onConfiguracion = {}, onPokedex = {}, onSalir = {}
+            )
         }
     }
 }

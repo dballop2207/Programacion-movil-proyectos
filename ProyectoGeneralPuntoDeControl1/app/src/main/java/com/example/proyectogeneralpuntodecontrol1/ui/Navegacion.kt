@@ -1,5 +1,11 @@
+// Navegacion: lee el DataStore (modo oscuro y tamaño de letra), aplica el tema y monta el NavHost con todas las pantallas.
+// authViewModel se crea UNA vez aquí y se pasa a Principal, InicioSesion y Registro, así todas ven la misma sesión.
+// Principal escucha el estado del login para mostrar el correo y el botón de iniciar/cerrar sesión.
+// popBackStack(Rutas.Principal.ruta, inclusive = false) quita login y registro y te deja en el menú.
+// onVolver = popBackStack(): de Login vuelves a Principal y de Registro vuelves a Login.
 package com.example.proyectogeneralpuntodecontrol1.ui
 
+import android.app.Activity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -13,36 +19,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.compose.AppTheme
 import com.example.proyectogeneralpuntodecontrol1.datos.ConfiguracionDataStore
 import com.example.proyectogeneralpuntodecontrol1.model.Rutas
-
-// NAVEGACIÓN: TEMA + GRÁFICO DE NAVEGACIÓN
-// Esta función envuelve TODA la app, por eso aquí se hace lo que antes
-// estaba en MainActivity:
-// 1. DataStore: lee el modo oscuro y el tamaño de texto guardados.
-//    collectAsState los escucha, así que al guardar en Configuración la app
-//    cambia sola de tema y de tamaño de letra.
-// 2. Escala de letra: CompositionLocalProvider multiplica el tamaño de todos
-//    los textos según la opción guardada.
-// 3. AppTheme + Scaffold: aplican los colores del tema y el fondo.
-// 4. NavHost: es el "gráfico de navegación", el hueco donde se dibuja la
-//    pantalla actual. Dentro, cada composable(ruta) { } dice qué pantalla
-//    se muestra para cada ruta. startDestination es la primera pantalla.
-//    Para ir a otra pantalla se usa navController.navigate(ruta), y para
-//    volver, navController.popBackStack(). El botón "atrás" del móvil
-//    funciona solo, porque el NavController lleva el historial.
-//    innerPadding se pasa al NavHost para que nada quede debajo de las
-//    barras del sistema.
-// De momento la ruta Principal muestra InicioPagina. Cuando hagamos
-// Principal.kt (el menú), la cambiaremos.
+import com.example.proyectogeneralpuntodecontrol1.ui.authentication.InicioSesion
+import com.example.proyectogeneralpuntodecontrol1.ui.authentication.Registro
+import com.example.proyectogeneralpuntodecontrol1.viewmodel.AuthViewModel
+import com.example.proyectogeneralpuntodecontrol1.viewmodel.EstadoAuth
 
 @Composable
 fun Navegacion(navController: NavHostController) {
     val context = LocalContext.current
+    val authViewModel: AuthViewModel = viewModel()
     val dataStore = remember { ConfiguracionDataStore(context) }
     val modoOscuro by dataStore.modoOscuro.collectAsState(initial = false)
     val tamanoTexto by dataStore.tamanoTexto.collectAsState(initial = "mediano")
@@ -68,10 +60,20 @@ fun Navegacion(navController: NavHostController) {
                     modifier = Modifier.padding(innerPadding)
                 ) {
                     composable(Rutas.Principal.ruta) {
-                        InicioPagina(
-                            onSobreNosotros = { navController.navigate(Rutas.SobreNosotros.ruta) },
+                        val estado by authViewModel.estado.collectAsState()
+                        Principal(
+                            conSesion = estado is EstadoAuth.ConSesion,
+                            correo = authViewModel.correoUsuario,
+                            onIniciarSesion = {
+                                authViewModel.comprobarSesion()
+                                navController.navigate(Rutas.InicioSesion.ruta)
+                            },
+                            onCerrarSesion = { authViewModel.cerrarSesion() },
                             onAcercaDe = { navController.navigate(Rutas.AcercaDe.ruta) },
-                            onConfiguracion = { navController.navigate(Rutas.Configuracion.ruta) }
+                            onSobreNosotros = { navController.navigate(Rutas.SobreNosotros.ruta) },
+                            onConfiguracion = { navController.navigate(Rutas.Configuracion.ruta) },
+                            onPokedex = { navController.navigate(Rutas.Pokedex.ruta) },
+                            onSalir = { (context as Activity).finish() }
                         )
                     }
                     composable(Rutas.SobreNosotros.ruta) {
@@ -82,6 +84,31 @@ fun Navegacion(navController: NavHostController) {
                     }
                     composable(Rutas.Configuracion.ruta) {
                         Configuracion(onVolver = { navController.popBackStack() })
+                    }
+                    composable(Rutas.Pokedex.ruta) {
+                        Pokedex(onVolver = { navController.popBackStack() })
+                    }
+                    composable(Rutas.InicioSesion.ruta) {
+                        InicioSesion(
+                            viewModel = authViewModel,
+                            onSesionIniciada = { navController.popBackStack(Rutas.Principal.ruta, inclusive = false) },
+                            onIrARegistro = {
+                                authViewModel.comprobarSesion()
+                                navController.navigate(Rutas.Registro.ruta)
+                            },
+                            onVolver = { navController.popBackStack() }
+                        )
+                    }
+                    composable(Rutas.Registro.ruta) {
+                        Registro(
+                            viewModel = authViewModel,
+                            onSesionIniciada = { navController.popBackStack(Rutas.Principal.ruta, inclusive = false) },
+                            onIrALogin = {
+                                authViewModel.comprobarSesion()
+                                navController.popBackStack()
+                            },
+                            onVolver = { navController.popBackStack(Rutas.Principal.ruta, inclusive = false) }
+                        )
                     }
                 }
             }

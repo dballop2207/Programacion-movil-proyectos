@@ -1,6 +1,7 @@
 // Registro: igual que InicioSesion, pero el botón llama a viewModel.registrar (crea el usuario en Firebase).
 // Firebase, al crear la cuenta, deja la sesión ya iniciada, así que el estado pasa a ConSesion y LaunchedEffect vuelve a Principal.
 // Firebase exige una contraseña de al menos 6 caracteres; si no, devuelve un Error con el motivo (en inglés).
+// onIrALogin y onVolver los decide Navegacion (los dos vuelven a la pantalla anterior).
 package com.example.proyectogeneralpuntodecontrol1.ui.authentication
 
 import androidx.compose.foundation.layout.*
@@ -19,7 +20,8 @@ import com.example.proyectogeneralpuntodecontrol1.viewmodel.EstadoAuth
 fun Registro(
     viewModel: AuthViewModel,
     onSesionIniciada: () -> Unit,
-    onIrALogin: () -> Unit
+    onIrALogin: () -> Unit,
+    onVolver: () -> Unit
 ) {
     var correo by remember { mutableStateOf("") }
     var contrasena by remember { mutableStateOf("") }
@@ -68,6 +70,15 @@ fun Registro(
         }
         TextButton(onClick = onIrALogin) {
             Text(stringResource(R.string.ir_login))
+        }
+
+        Spacer(Modifier.height(8.dp))
+        OutlinedButton(
+            onClick = onVolver,
+            shape = MaterialTheme.shapes.medium,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(stringResource(R.string.volver))
         }
     }
 }

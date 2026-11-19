@@ -1,4 +1,9 @@
+<!-- Textos en español: los de siempre + Pokédex (PC4) + login/registro y botón de sesión (PC5) -->
 <resources>
+    <!-- Textos de Acerca de: descripción del proyecto y descripción del logo (para accesibilidad) -->
+    <string name="proyecto_desc">Proyecto general de Programación Multimedia y Dispositivos Móviles (2.º DAM)</string>
+    <string name="logo_desc">Logo de Estudios Pica</string>
+
     <string name="app_name">ProyectoGeneralPuntoDeControl1</string>
     <string name="acerca_de">Acerca de</string>
     <string name="ayuda">Ayuda</string>
@@ -38,4 +43,24 @@
     <string name="dialogo_salir_texto">¿Seguro que quieres salir?</string>
     <string name="confirmar_salir">Sí, salir</string>
     <string name="cancelar">Cancelar</string>
+
+    <!-- Pokédex -->
+    <string name="pokedex_titulo">Pokédex</string>
+    <string name="pokemon_altura_peso">Altura: %1$s · Peso: %2$s</string>
+
+    <!-- Login y registro -->
+    <string name="login_titulo">Iniciar sesión</string>
+    <string name="registro_titulo">Crear cuenta</string>
+    <string name="correo">Correo electrónico</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="entrar">Entrar</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="ir_registro">¿No tienes cuenta? Regístrate</string>
+    <string name="ir_login">¿Ya tienes cuenta? Inicia sesión</string>
+    <string name="auth_campos_vacios">Rellena el correo y la contraseña</string>
+    <string name="auth_error">Error: %1$s</string>
+    <string name="iniciar_sesion">Iniciar sesión</string>
+    <string name="cerrar_sesion">Cerrar sesión</string>
+    <string name="sesion_de">Sesión iniciada: %1$s</string>
+    <string name="sin_sesion">No has iniciado sesión</string>
 </resources>
