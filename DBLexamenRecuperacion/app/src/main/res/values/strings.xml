@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DBLexamenRecuperacion</string>
+    <string name="Leche">Leche</string>
+    <string name="Pan">Pan</string>
+    <string name="Manzanas">Manzanas</string>
+    <string name="Huevos">Huevos</string>
+    <string name="MisCompras">Mis compras</string>
+</resources>

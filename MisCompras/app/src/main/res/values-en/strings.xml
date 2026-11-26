@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DBLexamenRecuperacion</string>
+    <string name="Leche">Milk</string>
+    <string name="Pan">Bread</string>
+    <string name="Manzanas">Apple</string>
+    <string name="Huevos">Eggs</string>
+    <string name="MisCompras">My purchases</string>
+</resources>
